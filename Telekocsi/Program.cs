@@ -100,14 +100,23 @@ namespace Telekocsi
         static void otos()
         {
             Console.WriteLine("5.Feladat:");
-            foreach (var a in autok)
+            //foreach (var a in autok)
+            //{
+            //    foreach (var i in igeny)
+            //    {
+            //        if (a.Indulas == i.Indulas && a.Cel == i.Cel)
+            //        {
+            //            Console.WriteLine($"\t{i.Azonosito} => {a.Rendszam}");
+            //        }
+            //    }
+            //}
+            foreach (var igeny in igeny)
             {
-                foreach (var i in igeny)
+                int i = 0;
+                while (i <autok.Count && igeny.Indulas == autok[i].Indulas && igeny.Cel == autok[i].Cel && igeny.Szemelyek <= autok[i].Ferohely)
                 {
-                    if (a.Indulas == i.Indulas && a.Cel == i.Cel)
-                    {
-                        Console.WriteLine($"\t{i.Azonosito} => {a.Rendszam}");
-                    }
+                    i++;
+                    Console.WriteLine($"{igeny.Azonosito} => {autok[i].Rendszam}");
                 }
             }
         }
