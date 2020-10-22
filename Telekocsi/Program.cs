@@ -97,50 +97,43 @@ namespace Telekocsi
 
         }
 
-        static void otos()
+       static void otos()
         {
-            Console.WriteLine("5.Feladat:");
-            //foreach (var a in autok)
-            //{
-            //    foreach (var i in igeny)
-            //    {
-            //        if (a.Indulas == i.Indulas && a.Cel == i.Cel)
-            //        {
-            //            Console.WriteLine($"\t{i.Azonosito} => {a.Rendszam}");
-            //        }
-            //    }
-            //}
+            Console.WriteLine("5. feladat");
+
             foreach (var igeny in igeny)
             {
-                int i = 0;
-                while (i <autok.Count && igeny.Indulas == autok[i].Indulas && igeny.Cel == autok[i].Cel && igeny.Szemelyek <= autok[i].Ferohely)
+                int i = igeny.VanAuto(autok);
+
+                if (i > -1)
                 {
-                    i++;
-                    Console.WriteLine($"{igeny.Azonosito} => {autok[i].Rendszam}");
+                    Console.WriteLine($"{igeny.Azonosito}=>{autok[i].Rendszam}");
                 }
             }
+
+            Console.WriteLine();
         }
 
         static void hatos()
         {
-            StreamWriter iro = new StreamWriter("utasuzenetek.txt");
+            StreamWriter file = new StreamWriter("utasuzenetek.txt");
 
-            foreach (var a in autok)
+            foreach (var igeny in igeny)
             {
-                foreach (var i in igeny)
+                int i = igeny.VanAuto(autok);
+
+                if (i > -1)
                 {
-                    if (a.Indulas == i.Indulas && a.Cel == i.Cel && a.Ferohely >= i.Szemelyek)
-                    {
-                        iro.WriteLine($"{i.Azonosito}: Rendszám: {a.Rendszam}, Telefonszám: {a.Telefonszam}");
-                    }
-                    else if (a.Indulas != i.Indulas && a.Cel == i.Cel && a.Ferohely >= i.Szemelyek)
-                    {
-                        iro.WriteLine($"{i.Azonosito} Sajnos nem sikerült autót találni");
-                    }
-                 
+                    file.WriteLine($"{igeny.Azonosito}: Rendszám: {autok[i].Rendszam}, Telefonszám: {autok[i].Telefonszam}");
+                }
+                else
+                {
+                    file.WriteLine($"{igeny.Azonosito}: Sajnos nem sikerült autót találni");
                 }
             }
-            iro.Close();
+
+
+            file.Close();
         }
         static void Main(string[] args)
         {

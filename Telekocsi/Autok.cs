@@ -18,5 +18,6 @@
             Ferohely = int.Parse(adat[4]);
             Utvonal = Indulas + "-" + Cel;
         }
+       
     }
 }
